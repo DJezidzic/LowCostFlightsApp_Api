@@ -3,8 +3,8 @@
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class Address
     {
-        public string cityName { get; set; }
-        public string cityCode { get; set; }
+        public string CityName { get; set; }
+        public string CityCode { get; set; }
         public string countryName { get; set; }
         public string countryCode { get; set; }
         public string regionCode { get; set; }
@@ -13,6 +13,11 @@
     public class Analytics
     {
         public Travelers travelers { get; set; }
+    }
+
+    public class Location
+    {
+        public Data Data { get; set; }
     }
 
     public class Data

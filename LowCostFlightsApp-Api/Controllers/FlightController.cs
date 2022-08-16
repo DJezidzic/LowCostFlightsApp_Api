@@ -16,8 +16,6 @@ namespace LowCostFlightsAppApi.Controllers
     public class FlightController : ControllerBase
     {
 
-
-
         // GET: api/<FlightController>
         /*[HttpGet]
         public string Get()
@@ -28,7 +26,7 @@ namespace LowCostFlightsAppApi.Controllers
 
         // GET api/<FlightController>/5
         [HttpGet]
-        public async Task<ActionResult<Models.Data>> GetLocation([FromServices] AmadeusService api, [FromQuery] string locationid)
+        public async Task<ActionResult<Models.Location>> GetLocation([FromServices] AmadeusService api, [FromQuery] string locationid)
         {
 
             if (!string.IsNullOrEmpty(locationid))
@@ -38,18 +36,6 @@ namespace LowCostFlightsAppApi.Controllers
             else { return BadRequest(); }
 
         }   
-
-        /*public async Task<ActionResult<AmadeusService.BusiestPeriodResults>> Get([FromServices]AmadeusService api ,[FromQuery]string cityCode, [FromQuery] int? year)
-        {
-            AmadeusService.BusiestPeriodResults busiestPeriodResults = new AmadeusService.BusiestPeriodResults();
-            if (!string.IsNullOrEmpty(cityCode) && year is int intYear)
-            {
-
-                busiestPeriodResults = await api.GetBusiestTravelPeriodsOfYear(cityCode, intYear);
-            }
-
-            return busiestPeriodResults;
-        }*/
 
         // POST api/<FlightController>
         [HttpPost]

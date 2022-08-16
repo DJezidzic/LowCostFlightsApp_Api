@@ -38,12 +38,9 @@ namespace LowCostFlightsAppApi.Services
             var responseJson = tResponse.Content;
             try
             {
-                 token = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseJson)["access_token"].ToString();
+                token = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseJson)["access_token"].ToString();
             }
             catch { throw new Exception("Auth failed to fetch"); }
-            
-            //return token.Length > 0 ? token : null;
-
             return token;
         }
 
@@ -55,9 +52,9 @@ namespace LowCostFlightsAppApi.Services
         }
 
 
-        public async Task<Models.Data> GetLocationOfAirports(string locationId)
+        public async Task<Models.Location> GetLocationOfAirports(string locationId)
         {
-            Models.Data LocationObject = new Models.Data();
+            Models.Location LocationObject = new Models.Location();
             var message = new HttpRequestMessage(HttpMethod.Get,
                 $"v1/reference-data/locations/{locationId}");
 
@@ -68,59 +65,11 @@ namespace LowCostFlightsAppApi.Services
                 string json = await content.ReadAsStringAsync();
                 if (json != null)
                 {
-                    LocationObject = JsonConvert.DeserializeObject<Models.Data>(json);
+                    LocationObject = JsonConvert.DeserializeObject<Models.Location>(json);
                     return LocationObject;
                 }
                 else { throw new Exception("Response is negative."); }
             }
-            //return JsonConvert.DeserializeObject<LocationSearchResult>(stream);
         }
-
-
-
-
-
-
-
-
-
-        // Samo za testiranje
-        public async Task<BusiestPeriodResults> GetBusiestTravelPeriodsOfYear(string cityCode, int year)
-        {
-            var message = new HttpRequestMessage(HttpMethod.Get,
-                $"/v1/shopping/flight-destinations/?cityCode={cityCode}&period={year}");
-
-            ConfigBearerTokenHeader();
-            var response = await http.SendAsync(message);
-            using var stream = await response.Content.ReadAsStreamAsync();
-            return await System.Text.Json.JsonSerializer.DeserializeAsync<BusiestPeriodResults>(stream);
-        }
-
-
-        public class BusiestPeriodResults
-        {
-            public class Item
-            {
-                public string type { get; set; }
-                public string period { get; set; }
-                public Analytics analytics { get; set; }
-                public int score => analytics.travelers.score;
-            }
-
-            public class Analytics
-            {
-                public Travelers travelers { get; set; }
-            }
-
-            public class Travelers
-            {
-                public int score { get; set; }
-            }
-
-            public List<Item> data { get; set; }
-            public string graphArray => string.Join(',', data.OrderBy(x => x.period).Select(x => x.score));
-        }
-
-
     }
 }
