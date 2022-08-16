@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using LowCostFlightsAppApi.Data;
+using LowCostFlightsAppApi.Services;
 
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -11,6 +12,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient("AmadeusServiceApi", client => {
+    client.BaseAddress = new Uri("https://test.api.amadeus.com");
+});
+builder.Services.AddScoped<AmadeusService>();
 builder.Services.AddDbContext<DataContext>(options => {
     options.UseSqlServer(builder.Configuration["DefaultConnection"]);
 });
