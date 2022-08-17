@@ -52,6 +52,28 @@ namespace LowCostFlightsAppApi.Services
         }
 
 
+        public async Task<CheapFlightSearchResult> GetCheapFlights(string location, string destination, 
+            string departureDate, string? returnDate, int adults, Boolean nonStop)
+        {
+            CheapFlightSearchResult cheapFlightSearchResult = new CheapFlightSearchResult();
+            var reqMessage = new HttpRequestMessage(HttpMethod.Get,
+                $"v2/shopping/flight-offers?originLocationCode={location}&destinationLocationCode={destination}&departureDate={departureDate}" +
+                $"&returnDate={returnDate}&adults={adults}&nonStop={nonStop}");
+            ConfigBearerTokenHeader();
+            using (HttpResponseMessage response = await http.SendAsync(reqMessage))
+            using (HttpContent content = response.Content)
+            {
+                string json = await content.ReadAsStringAsync();
+                if (json != null)
+                {
+                    cheapFlightSearchResult = JsonConvert.DeserializeObject<CheapFlightSearchResult>(json);
+                    return cheapFlightSearchResult;
+                }
+                else { throw new Exception("Response is negative."); }
+            }
+
+        }
+        
         public async Task<Models.Location> GetLocationOfAirports(string locationId)
         {
             Models.Location LocationObject = new Models.Location();

@@ -25,7 +25,7 @@ namespace LowCostFlightsAppApi.Controllers
         }*/
 
         // GET api/<FlightController>/5
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Models.Location>> GetLocation([FromServices] AmadeusService api, [FromQuery] string locationid)
         {
 
@@ -35,7 +35,19 @@ namespace LowCostFlightsAppApi.Controllers
             }
             else { return BadRequest(); }
 
-        }   
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<CheapFlightSearchResult>> GetCheapFlightsAmadeus([FromServices] AmadeusService api, [FromQuery] string location
+            , [FromQuery] string destination, [FromQuery] string departureDate, [FromQuery] string? returnDate, 
+            [FromQuery] int adults, [FromQuery] Boolean nonStop)
+        {
+            if(((location ?? destination ?? departureDate) !=null) && adults != 0)
+            {
+                return await api.GetCheapFlights(location,destination,departureDate,returnDate,adults,nonStop);
+            }
+            else { return BadRequest(); }
+        }
 
         // POST api/<FlightController>
         [HttpPost]
