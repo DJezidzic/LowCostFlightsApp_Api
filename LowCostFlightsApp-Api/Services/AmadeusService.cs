@@ -74,11 +74,12 @@ namespace LowCostFlightsAppApi.Services
 
         }
         
-        public async Task<Models.Location> GetLocationOfAirports(string locationId)
+        public async Task<Location> GetLocationOfAirports(string keyword)
         {
-            Models.Location LocationObject = new Models.Location();
+
+            Location LocationObject = new Location();
             var message = new HttpRequestMessage(HttpMethod.Get,
-                $"v1/reference-data/locations/{locationId}");
+                $"v1/reference-data/locations?subType=CITY,AIRPORT&keyword={keyword.ToUpper()}");
 
             ConfigBearerTokenHeader();
             using (HttpResponseMessage response = await http.SendAsync(message))
@@ -87,7 +88,7 @@ namespace LowCostFlightsAppApi.Services
                 string json = await content.ReadAsStringAsync();
                 if (json != null)
                 {
-                    LocationObject = JsonConvert.DeserializeObject<Models.Location>(json);
+                    LocationObject = JsonConvert.DeserializeObject<Location>(json);
                     return LocationObject;
                 }
                 else { throw new Exception("Response is negative."); }

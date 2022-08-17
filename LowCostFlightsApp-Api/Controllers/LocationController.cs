@@ -13,34 +13,33 @@ namespace LowCostFlightsAppApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FlightController : ControllerBase
+    public class LocationController : ControllerBase
     {
-
+        // GET api/<LocationController>/5
         [HttpGet]
-        public async Task<ActionResult<CheapFlightSearchResult>> GetCheapFlightsAmadeus([FromServices] AmadeusService api, [FromQuery] string location
-            , [FromQuery] string destination, [FromQuery] string departureDate, [FromQuery] string? returnDate, 
-            [FromQuery] int adults, [FromQuery] Boolean nonStop)
+        public async Task<ActionResult<Location>> GetLocation([FromServices] AmadeusService api, [FromQuery] string keyword)
         {
-            if(((location ?? destination ?? departureDate) !=null) && adults != 0)
+
+            if (!string.IsNullOrEmpty(keyword))
             {
-                return await api.GetCheapFlights(location,destination,departureDate,returnDate,adults,nonStop);
+                return await api.GetLocationOfAirports(keyword);
             }
             else { return BadRequest(); }
         }
 
-        // POST api/<FlightController>
+        // POST api/<LocationController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<FlightController>/5
+        // PUT api/<LocationController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<FlightController>/5
+        // DELETE api/<LocationController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
