@@ -58,7 +58,7 @@ namespace LowCostFlightsAppApi.Services
             CheapFlightSearchResult cheapFlightSearchResult = new CheapFlightSearchResult();
             var reqMessage = new HttpRequestMessage(HttpMethod.Get,
                 $"v2/shopping/flight-offers?originLocationCode={location}&destinationLocationCode={destination}&departureDate={departureDate}" +
-                $"&returnDate={returnDate}&adults={adults}&nonStop={nonStop}");
+                $"&returnDate={returnDate}&adults={adults}&nonStop={nonStop.ToString().ToLower()}"); //hardkodirano kao false prolazi
             ConfigBearerTokenHeader();
             using (HttpResponseMessage response = await http.SendAsync(reqMessage))
             using (HttpContent content = response.Content)
