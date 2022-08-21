@@ -7,52 +7,52 @@
 
     public class FlightSearchData
     {
-        public string type { get; set; }
-        public string id { get; set; }
-        public string source { get; set; }
-        public Price price { get; set; }
-        public List<Itinerary> itineraries { get; set; }
-        public List<TravelerPricing> travelerPricings { get; set; }
+        public string Type { get; set; }
+        public string Id { get; set; }
+        public string Source { get; set; }
+        public Price Price { get; set; }
+        public List<Itinerary> Itineraries { get; set; }
+        public List<TravelerPricing> TravelerPricings { get; set; }
 
     }
 
     public class Departure
     {
-        public string iataCode { get; set; }
-        public string terminal { get; set; }
-        public DateTime at { get; set; }
+        public string IataCode { get; set; }
+        public string Zerminal { get; set; }
+        public DateTime At { get; set; }
     }
     public class Price
     {
-        public string currency { get; set; }
-        public string total { get; set; }
-        public string grandTotal { get; set; }
+        public string Currency { get; set; }
+        public string Total { get; set; }
+        public string GrandTotal { get; set; }
     }
 
     public class Segment
     {
-        public Departure departure { get; set; }
-        public string carrierCode { get; set; }
-        public string number { get; set; }
-        public int numberOfStops { get; set; }
+        public Departure Departure { get; set; }
+        public string CarrierCode { get; set; }
+        public string Number { get; set; }
+        public int NumberOfStops { get; set; }
     }
 
     public class Itinerary
     {
-        public string duration { get; set; }
-        public List<Segment> segments { get; set; }
+        public string Duration { get; set; }
+        public List<Segment> Segments { get; set; }
     }
 
     public class FareDetailsBySegment
     {
-        public string cabin { get; set; }
+        public string Cabin { get; set; }
         
     }
 
     public class TravelerPricing
     {
-        public string fareOption { get; set; }
-        public List<FareDetailsBySegment> fareDetailsBySegment { get; set; }
+        public string FareOption { get; set; }
+        public List<FareDetailsBySegment> FareDetailsBySegment { get; set; }
     }
 
 

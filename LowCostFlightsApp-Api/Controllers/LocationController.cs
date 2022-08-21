@@ -16,8 +16,8 @@ namespace LowCostFlightsAppApi.Controllers
     public class LocationController : ControllerBase
     {
         // GET api/<LocationController>/5
-        [HttpGet]
-        public async Task<ActionResult<Location>> GetLocation([FromServices] AmadeusService api, [FromQuery] string keyword)
+        [HttpGet("{keyword}")]
+        public async Task<ActionResult<Location>> GetLocation([FromServices] AmadeusService api, string keyword)
         {
 
             if (!string.IsNullOrEmpty(keyword))
