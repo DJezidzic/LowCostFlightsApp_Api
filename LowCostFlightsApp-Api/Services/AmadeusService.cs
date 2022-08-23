@@ -25,10 +25,6 @@ namespace LowCostFlightsAppApi.Services
         }
         private string GetToken()
         {
-            // Fetching Oauth2 Bearer token from Amadeus
-            //string client_id = "KLDkPx97EGepKI8VmVWgSoKat5gFDKYQ";
-            //string client_secret = "qVP7XaGJZkR6WTZQ";
-
             //request token
             var restclient = new RestClient(_tokenUrl);
             RestRequest request = new RestRequest("request/oauth") { Method = Method.Post };
