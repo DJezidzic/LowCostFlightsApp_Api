@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using LowCostFlightsAppApi.Data;
 using LowCostFlightsAppApi.Services;
+using LowCostFlightsAppApi.ServiceInterfaces;
 
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -15,7 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient("AmadeusServiceApi", client => {
     client.BaseAddress = new Uri("https://test.api.amadeus.com");
 });
-builder.Services.AddScoped<AmadeusService>();
+builder.Services.AddScoped<IAmadeusService,AmadeusService>();
 builder.Services.AddDbContext<DataContext>(options => {
     options.UseSqlServer(builder.Configuration["DefaultConnection"]);
 });
